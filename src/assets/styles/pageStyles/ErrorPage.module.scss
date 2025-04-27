@@ -1,0 +1,97 @@
+@import url("https://use.typekit.net/ovt6ynt.css");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Oswald:wght@200;300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&family=Spectral:wght@200;300;400;500;600;700;800&display=swap");
+@import "../colors.module.scss";
+@import "../font.module.scss"; 
+
+$logo-size: 8vh;
+$error-img-width: 45vh;
+$error-img-height: 55vh;
+$error-img-max-width: 100vh;
+$error-img-max-height: 100vh;
+$nav-link-height: 4.5vh;
+$nav-link-width: 25.5vh;
+
+$padding-error-content: 0;
+$margin-error-content: 0;
+$margin-error-img: 4.6vh 0;
+$margin-nav-link: 0;
+
+$font-size-title: 20vh; 
+$letter-spacing-title: 1vh;
+$letter-spacing-text: 0.1vh;
+
+.error {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  background: none;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-self: center;
+    padding: $padding-error-content;
+    margin: $margin-error-content;
+    .logo {
+      width: $logo-size;
+      height: $logo-size;
+      margin: 3.1vh 0;
+    }
+
+    .title {
+      font-family: $font-family;
+      font-weight: $font-weight-normal;
+      font-size: $font-size-title;
+      letter-spacing: $letter-spacing-title;
+      padding-bottom: 1.5vh;
+      color: $error-color;
+      margin: 0;
+    }
+
+    .text {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-family: $font-family;
+      line-height: 2.5vh;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-big;
+      margin: auto;
+      letter-spacing: $letter-spacing-text;
+      color: $error-color;
+      width: 20em;
+    }
+
+    .link {
+      display: inline-block;
+      height: $nav-link-height;
+      line-height: $nav-link-height;
+      width: $nav-link-width;
+      font-family: $font-family;
+      color: $error-color;
+      border-radius: 2.5vh;
+      background: $nav-bg;
+      text-align: center;
+      font-size: 1.5vh;
+      letter-spacing: $letter-spacing-text;
+      text-decoration: none;
+
+      &:hover {
+        box-shadow: $nav-hover-shadow;
+        color: $error-color;
+      }
+    }
+  }
+
+  .img {
+    align-self: center;
+    width: $error-img-width;
+    height: $error-img-height;
+    max-width: $error-img-max-width;
+    max-height: $error-img-max-height;
+  }
+}

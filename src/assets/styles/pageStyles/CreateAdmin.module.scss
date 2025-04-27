@@ -1,0 +1,179 @@
+@import "../colors.module.scss";
+@import "../font.module.scss";
+
+$padding-admin: 2vh;
+$padding-form-horizontal: 1.6vh;
+$margin-header: 8%;
+$margin-input-bottom: 1.5vh;
+$margin-select-bottom: 2vh;
+$gap-buttons: 2vh;
+$margin-errors: 0.5vh 0;
+
+$admin-width: 40vh;
+$admin-height: auto;
+$admin-min-height: 20vh;
+$select-width: 100%;
+$select-height: 3.5vh;
+
+$radius-small: 0.5vh;
+$radius-medium: 1vh;
+
+$box-shadow-admin: 0 0.8vh 0.8vh rgba(0, 0, 0, 0);
+$box-shadow-inset: inset 0 0.4vh 0.4vh rgba(0, 0, 0, 0.25);
+$box-shadow-hover: 0.4vh 0.4vh 0.2vh #0000008e;
+$box-shadow-error: 0 0 1vh rgba(0, 0, 0, 0.1);
+
+$letter-spacing-small: 0.07vh;
+$letter-spacing-medium: 0.08vh;
+
+$height-style-img: 13%;
+
+.admin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $primary-bg;
+  box-shadow: $box-shadow-admin;
+  border-radius: $radius-medium;
+  width: $admin-width;
+  height: $admin-height;
+  min-height: $admin-min-height;
+  padding: $padding-admin;
+  .logo {
+    margin: 3vh 0;
+    width: $height-style-img;
+    height: $height-style-img;
+  }
+  .header {
+    margin-bottom: $margin-header;
+
+    .text {
+      color: $header-color;
+      text-align: center;
+      font-family: $font-family;
+      font-size: $font-size-big;
+      font-weight: $font-weight-bold;
+      letter-spacing: 0.11vh;
+    }
+    .errors {
+      position: relative;
+      font-size: $font-size-medium;
+      word-wrap: break-word;
+      width: 30vh;
+      height: 2vh;
+      margin: $margin-errors;
+      color: $error-color;
+      border-radius: $radius-small;
+      box-shadow: $box-shadow-error;
+      z-index: 999;
+      text-align: center;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 $padding-form-horizontal;
+    margin-bottom: $margin-input-bottom;
+
+    .label {
+      display: flex;
+      justify-content: flex-start;
+      font-size: $font-size-medium;
+      font-family: $font-family;
+      font-weight: $font-weight-normal;
+      letter-spacing: $letter-spacing-medium;
+      color: $primary-color;
+      margin-bottom: 0.4vh;
+      text-align: start;
+      flex-flow: row nowrap;
+    }
+
+    .input {
+      font-size: $font-size-medium;
+      font-family: $font-family;
+      letter-spacing: $letter-spacing-small;
+      font-weight: $font-weight-normal;
+      width: 100%;
+      text-align: left;
+      color: $secondary-color;
+      background-color: $input-bg !important;
+      box-shadow: $box-shadow-inset;
+      border-radius: $radius-small;
+      padding: 0.5vh 1vh;
+    }
+
+    .select {
+      display: flex;
+      justify-content: space-between;
+      width: $select-width;
+      height: $select-height;
+      padding: 0.5vh 0 0.5vh 1.5vh;
+      color: $primary-color;
+      background: $select-bg;
+      border-radius: $radius-small;
+      border: none;
+      margin-bottom: $margin-select-bottom;
+      font-size: $font-size-medium;
+      letter-spacing: $letter-spacing-small;
+
+      &:focus,
+      &:active,
+      &:not(:focus) {
+        outline: none;
+        border: none;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: $gap-buttons;
+    margin-top: 5%;
+    margin-bottom: 15%;
+    .button {
+      color: $primary-color;
+      background: transparent;
+      border-radius: $radius-small;
+      text-align: center;
+      font-family: $font-family;
+      font-size: $font-size-medium;
+      font-weight: $font-weight-regular;
+      letter-spacing: $letter-spacing-small;
+      padding: 0.8vh 3.7vh;
+      border: none;
+      outline: none;
+
+      &:hover:not(:active) {
+        box-shadow: $box-shadow-hover;
+      }
+
+      &:hover,
+      &:not(:focus),
+      &:not(:active) {
+        outline: none;
+        border: none;
+      }
+    }
+  }
+
+  input {
+    &:focus,
+    &:active,
+    &:not(:focus) {
+      outline: none;
+      border: none;
+      background: transparent;
+      color: $secondary-color;
+      font-family: $font-family;
+      letter-spacing: $letter-spacing-small;
+      text-indent: 0;
+    }
+  }
+}

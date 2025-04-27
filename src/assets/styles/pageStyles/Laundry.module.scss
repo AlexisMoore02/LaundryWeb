@@ -1,0 +1,81 @@
+@import "../colors.module.scss";
+@import "../font.module.scss";
+
+$margin-laundry-horizontal: 10%;
+$gap-bot-items: 5vh;
+$margin-button-top: 0.5vh;
+$padding-button: 0.5vh 1.2vh;
+
+$header-height: 10vh;
+$icon-size-large: 7vh;
+$icon-size-small: 3vh;
+
+$radius-button: 0.5vh;
+
+$box-shadow-button: 0.1vh 0.1vh 0.2vh 0.1vh rgba(0, 0, 0, 0.25);
+
+$letter-spacing-primary: 0.1vh;
+
+.laundry {
+  width: 100%;
+  height: 100%;
+  background: none;
+  margin: 0vh $margin-laundry-horizontal;
+  overflow: hidden;
+
+  .header {
+    display: flex;
+    grid-template-columns: auto 3.5%;
+    height: $header-height;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .bot {
+      display: grid;
+      grid-template-columns: 7% auto;
+      justify-content: space-between;
+      gap: $gap-bot-items;
+      align-items: center;
+
+      .name {
+        font-family: $font-family;
+        font-size: $font-size-big;
+        font-weight: $font-weight-bold;
+        letter-spacing: $letter-spacing-primary;
+        color: $color-text;
+        margin: 0;
+        padding: 0;
+      }
+
+      .icon {
+        width: $icon-size-large;
+        height: $icon-size-large;
+      }
+    }
+  }
+
+  .button {
+    display: flex;
+    margin-top: $margin-button-top;
+    padding: $padding-button;
+    box-shadow: $box-shadow-button;
+    background: $primary-background;
+    border: none;
+    border-radius: $radius-button;
+    color: $color-text;
+
+    .icon {
+      width: $icon-size-small;
+      height: $icon-size-small;
+    }
+    &:active,
+    &:focus {
+      outline: none;
+      border: none;
+    }
+    &:hover {
+      box-shadow: 0 0.4vh 0.4vh rgba(0, 0, 0, 0.25);
+    }
+  }
+}

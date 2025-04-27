@@ -1,0 +1,56 @@
+@import "../colors.module.scss";
+@import "../font.module.scss";
+
+$tab-padding-vertical: 1vh;
+$tab-padding-horizontal: 4vh;
+$tab-margin-right: 1.2vh;
+$tab-border-radius: 0.5vh 0.5vh 0 0;
+$tab-border-bottom-width: 0.5vh;
+
+$tab-content-padding: 3vh;
+$tab-content-border-radius: 0.5vh;
+$tab-content-height: 83vh;
+
+.tabs {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  li {
+    position: relative;
+    display: inline-flex;
+    padding: $tab-padding-vertical $tab-padding-horizontal;
+    margin-right: $tab-margin-right;
+    cursor: pointer;
+    border-radius: $tab-border-radius;
+    border: none;
+    font-size: $font-size;
+    border-bottom: $tab-border-bottom-width solid $tab-border-bottom-color;
+    background: $primary-background;
+    color: $primary-text;
+    box-shadow: $tab-box-shadow;
+
+    &.active {
+      color: $tab-active-text-color;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0.2vh;
+        background-image: $tab-active-gradient;
+      }
+    }
+  }
+}
+
+.tab_content {
+  padding: $tab-content-padding;
+  border-radius: $tab-content-border-radius;
+  height: $tab-content-height;
+  background: $primary-background;
+  box-shadow: $tab-box-shadow;
+}

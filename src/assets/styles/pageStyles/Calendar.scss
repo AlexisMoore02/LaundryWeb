@@ -1,0 +1,148 @@
+@import "../colors.module.scss";
+@import "../font.module.scss";
+
+$tile-margin: 0.2vh;
+$label-margin: -0.5vh -4.4vh 0;
+
+$navigation-height: 3.5vh;
+$tile-width: 2vh;
+$tile-height: 3.5vh;
+$navigation-button-min-width: 3.4vh;
+$navigation-button-margin-top: 0.8vh;
+
+$radius-small: 0.3vh; 
+
+$calendar-shadow: 0 1.2vh 2.4vh rgba(0, 0, 0, 0.2);
+
+$calendar-z-index: 1000;
+
+$calendar-top: 100%;
+$calendar-left: 0;
+
+.react-calendar {
+  width: auto;
+  height: auto;
+  background-color: $calendar-bg;
+  border: $calendar-border;
+  color: $primary-text;
+  border-radius: $radius-small;
+  box-shadow: $calendar-shadow;
+  font-family: $font-family-calendar;
+  line-height: 0vh;
+  position: absolute;
+  top: $calendar-top;
+  left: $calendar-left;
+  z-index: $calendar-z-index;
+
+  &__navigation {
+    height: $navigation-height;
+
+    button {
+      color: $primary-text;
+      min-width: $navigation-button-min-width;
+      background: none;
+      font-size: $font-size;
+      margin-top: $navigation-button-margin-top;
+      height: $navigation-height;
+
+      &:enabled:hover,
+      &:enabled:focus {
+        background-color: $calendar-bg;
+      }
+
+      &[disabled] {
+        background-color: $disabled-bg;
+      }
+    }
+
+    &__label__labelText,
+    &__label__labelText--from {
+      margin: $label-margin;
+    }
+  }
+
+  abbr[title] {
+    text-decoration: none;
+    color: $text-color-accent;
+  }
+
+  &__month-view__days__day--weekend {
+    color: $weekend-color;
+  }
+
+  &__tile {
+    color: $primary-text;
+    width: $tile-width;
+    height: $tile-height;
+    padding: 0;
+    margin: $tile-margin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size;
+
+    &:enabled:hover,
+    &:enabled:focus {
+      background: $tile-hover-bg;
+      color: $primary-text;
+      border-radius: $radius-small;
+    }
+
+    &--now {
+      background: $primary-background;
+      border-radius: $radius-small;
+      font-weight: bold;
+      color: $primary-text;
+
+      &:enabled:hover,
+      &:enabled:focus {
+        background: $tile-now-hover-bg;
+      }
+    }
+
+    &--hasActive:enabled:hover,
+    &--hasActive:enabled:focus {
+      background: $tile-active-bg;
+    }
+
+    &--active {
+      background: $tile-active-bg;
+      border-radius: $radius-small;
+      font-weight: bold;
+      color: $primary-text;
+
+      &:enabled:hover,
+      &:enabled:focus {
+        background: $tile-active-bg;
+      }
+    }
+
+    &--range {
+      background: $tile-range-bg;
+      color: $primary-text;
+      border-radius: 0;
+    }
+
+    &--rangeStart {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: $radius-small;
+      border-bottom-left-radius: $radius-small;
+      background: $tile-active-bg;
+      color: white;
+    }
+
+    &--rangeEnd {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: $radius-small;
+      border-bottom-right-radius: $radius-small;
+      background: $disabled-bg;
+      color: $primary-text;
+    }
+  }
+
+  &--selectRange &__tile--hover {
+    background-color: $tile-range-bg;
+  }
+}

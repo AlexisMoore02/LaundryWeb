@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,500;0,700;1,300;1,700&display=swap"); 
+@import url("https://use.typekit.net/ovt6ynt.css");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;   
+}  
+.Content {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}  
+.Container {
+  height: 100vh;
+  background: #181818
+} 

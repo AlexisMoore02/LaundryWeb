@@ -1,0 +1,270 @@
+@import "../colors.module.scss";
+@import "../font.module.scss";
+
+$gap-vertical: 2vh;
+$gap-horizontal: 5vh;
+$margin-bottom-filters: 2vh;
+$margin-error: -2.2vh 0 0 0.2vh;
+$padding-checkbox: 0.8vh 2vh;
+
+$input-height: 3.5vh;
+$input-width: 20vh;
+$button-width-small: 4vh;
+$button-width-medium: 24vh;
+$checkbox-width: 2vh;
+$checkbox-height: 2vh;
+$checkbox-active-size: 2.4vh;
+$checkbox-left-padding: 3.5vh;
+
+$radius-small: 0.5vh;
+
+$shadow-inset: inset 0 0.4vh 0.4vh rgba(0, 0, 0, 0.25);
+$shadow-hover: 0 0vh 0.1vh 0.1vh #1c2d6b;
+
+.filters {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: $gap-vertical $gap-horizontal;
+  width: 100%;
+  align-items: start;
+  margin-bottom: $margin-bottom-filters;
+  padding: 0;
+
+  .search {
+    display: flex;
+
+    .error {
+      color: $text-error;
+      font-family: $font-family;
+      position: absolute;
+      margin: $margin-error;
+      font-size: $font-size;
+    }
+
+    .inputWrapper {
+      font-family: $font-family;
+      background-color: $bg-input !important;
+      border-radius: $radius-small 0 0 $radius-small;
+      box-shadow: $shadow-inset;
+      color: $text-secondary;
+      text-align: center;
+      height: $input-height;
+      width: $input-width;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: start;
+
+      input {
+        padding: 0;
+        width: $input-width;
+        font-size: $font-size-medium;
+        letter-spacing: 0.07vh;
+        background: transparent;
+        border: none;
+        color: inherit;
+        font-family: inherit;
+        &:active,
+        &:focus,
+        &:hover {
+          outline: none;
+          border: none;
+        }
+        &::placeholder {
+          color: $text-placeholder;
+        }
+      }
+    }
+
+    .searchBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $bg-primary;
+      color: $text-primary;
+      border: none;
+      border-radius: $radius-small;
+      height: $input-height;
+      width: $button-width-small;
+      padding: 0 0.8vh;
+
+      svg {
+        width: 2vh;
+        height: 2vh;
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+        border: none;
+      }
+
+      &:hover {
+        box-shadow: $shadow-hover;
+      }
+    }
+  }
+
+  .calendar {
+    font-family: $font-family;
+    position: relative;
+    font-size: $font-size-medium;
+
+    .input {
+      cursor: default;
+      width: $input-width;
+      background-color: initial;
+      outline: none;
+      color: $text-light;
+      border: none;
+
+      &::placeholder {
+        color: $text-light;
+        font-family: $font-family;
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        border: none;
+        outline: none;
+      }
+    }
+
+    .calendarBtn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: $bg-primary;
+      color: $text-primary;
+      border: none;
+      border-radius: $radius-small;
+      height: $input-height;
+      padding: 0 0.8vh;
+      width: $button-width-medium;
+
+      svg {
+        margin-left: 0.5vh;
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+        border: none;
+      }
+
+      &:hover {
+        box-shadow: $shadow-hover;
+      }
+    }
+  }
+
+  .select {
+    display: flex;
+    flex-direction: column;
+    width: $button-width-medium;
+
+    .selectBtn {
+      background: $bg-primary;
+      color: $text-primary;
+      border: none;
+      border-radius: $radius-small;
+      padding: 0 0.8vh;
+      height: $input-height;
+      font-size: $font-size-medium;
+      letter-spacing: 0.07vh;
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-left: auto;
+        cursor: pointer;
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+        border: none;
+      }
+
+      &:hover {
+        box-shadow: $shadow-hover;
+      }
+    }
+
+    .checkboxList {
+      position: absolute;
+      width: $button-width-medium;
+      margin-top: 3vh;
+      background: $bg-primary;
+      color: $text-primary;
+      border-radius: 0 0 $radius-small $radius-small;
+      padding: $padding-checkbox;
+      z-index: 1;
+      letter-spacing: 0.07vh;
+
+      input[type="checkbox"] {
+        display: none;
+
+        &:checked + label:before {
+          width: 0.7vh;
+          top: -0.2vh;
+          left: 0.6vh;
+          border-radius: 0;
+          opacity: 1;
+          border-top-color: transparent;
+          border-left-color: transparent;
+          transform: rotate(45deg);
+        }
+
+        &:checked + label:after {
+          content: "";
+          display: block;
+          width: $checkbox-active-size;
+          height: $checkbox-active-size;
+          background: $bg-checkbox-checked;
+          position: absolute;
+          left: -0.2vh;
+          top: -0.2vh;
+          border: 0.15vh solid $text-primary;
+          border-radius: 5px;
+          box-sizing: border-box;
+        }
+
+        + label {
+          display: block;
+          position: relative;
+          padding-left: $checkbox-left-padding;
+          margin: 0.5vh 0;
+          font: $font-size/2vh $font-family-checkbox;
+          color: #ddd;
+          cursor: pointer;
+
+          &:last-child {
+            margin-bottom: 0.7vh;
+          }
+
+          &:before {
+            content: "";
+            display: block;
+            width: $checkbox-width;
+            height: $checkbox-height;
+            border: 0.15vh solid $text-primary;
+            border-radius: $radius-small;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.6;
+            transition: all 0.12s, border-color 0.08s;
+          }
+        }
+
+        &:not(:checked) + label.inactive {
+          color: $text-primary;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

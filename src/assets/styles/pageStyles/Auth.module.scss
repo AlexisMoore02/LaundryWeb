@@ -1,0 +1,185 @@
+@import "../colors.module.scss";
+@import "../font.module.scss";
+
+$border-radius-small: 1vh;
+$border-radius-button: 3.5vh;
+
+$padding-form: 0vh;
+$padding-input: 0.5vh 1.6vh;
+$padding-button: 0.3vh 0;
+
+$width-form: 40vh;
+$width-login-form: 70%;
+
+$height-form-min: 20vh;
+$height-style-img: 13%;
+$height-button: 3.5vh;
+$header-color: #cfcdcd;
+$margin-header: 8%;
+$text-header: 2.4vh;
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $color-background;
+  box-shadow: 0 0.8vh 0.8vh $color-shadow;
+  border-radius: $border-radius-small;
+  width: $width-form;
+  height: 50%;
+  min-height: $height-form-min;
+  padding: $padding-form;
+
+  .logo {
+    margin: 3vh 0;
+    width: $height-style-img;
+    height: $height-style-img;
+  }
+  .header {
+    margin-bottom: $margin-header;
+    .text {
+      height: $text-header;
+      color: $header-color;
+      text-align: center;
+      font-family: $font-family;
+      font-size: $font-size-big;
+      font-weight: $font-weight-bold;
+      letter-spacing: 0.11vh;
+    }
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    background: $color-background;
+    box-shadow: 0 0.8vh 0.8vh $color-shadow;
+    border-radius: $border-radius-small;
+    margin-bottom: 3vh;
+    padding: $padding-input;
+    width: $width-login-form;
+
+    .label {
+      font-size: $font-size-medium;
+      font-family: $font-family;
+      font-weight: $font-weight-normal;
+      letter-spacing: 0.08vh;
+      color: $color-primary;
+      margin-bottom: 0.4vh;
+    }
+
+    .input {
+      display: flex;
+      justify-content: flex-start;
+
+      font-size: $font-size-medium;
+      font-family: $font-family;
+      letter-spacing: 0.07vh;
+      font-weight: $font-weight-normal;
+      color: $color-text;
+
+      svg {
+        background-size: 100% 100%;
+        color: $color-text;
+      }
+
+      &[type="text"],
+      &[type="password"] {
+        text-indent: 1vh;
+        letter-spacing: 0.05vh;
+        color: $color-text;
+      }
+
+      &:focus,
+      &:active,
+      &:not(:focus) {
+        outline: none;
+        border: none;
+        background: transparent;
+        color: $color-text;
+        font-family: $font-family;
+        letter-spacing: 0.07vh;
+        text-indent: 0.7vh;
+      }
+    }
+  }
+  .link {
+    margin-top: 2vh;
+    font-size: $font-size-medium;
+    display: block;
+    text-align: center;
+    color: $color-primary;
+    box-shadow: none;
+
+    &:hover {
+      text-decoration: underline;
+      box-shadow: none;
+      color: $color-primary;
+    }
+  }
+
+  .notific {
+    position: relative;
+    height: 2vh;
+    text-align: center;
+    color: $color-primary;
+    box-shadow: none;
+
+    .error {
+      color: #ff6666;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .offscreen {
+      display: none;
+      color: #47c752;
+    }
+  }
+
+  .button {
+    font-size: $font-size-button;
+    width: $width-login-form;
+    height: $height-button;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.1vh;
+    padding: $padding-button;
+    border-radius: $border-radius-button;
+    outline: none;
+    border: none;
+    margin-top: 1vh;
+    text-align: center;
+    font-family: $font-family;
+    background: $color-primary;
+    color: $color-button-text;
+
+    &:hover:not(:active) {
+      box-shadow: 0 0.1vh 0.2vh 0 $color-button-hover1,
+        0.2vh 0.2vh 0.8vh 0 $color-button-hover2;
+    }
+
+    &:hover,
+    &:not(:focus),
+    &:focus,
+    &:active {
+      outline: none;
+      border: none;
+    }
+  }
+
+  input {
+    background: none;
+    border: none;
+
+    &:focus,
+    &:active,
+    &:not(:focus) {
+      width: 100%;
+      text-align: left;
+      outline: none;
+      border: none;
+      background: transparent;
+      color: $color-text;
+      font-family: $font-family;
+      letter-spacing: 0.07vh;
+      text-indent: 0.7vh;
+    }
+  }
+}
