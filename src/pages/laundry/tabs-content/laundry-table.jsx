@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import moment from "moment";
+import { defaultDateFrom, defaultDateTo } from "constants/dateDefaults";
 import { RiEditLine, RiDeleteBinLine } from "react-icons/ri";
  
 import {
@@ -25,9 +25,7 @@ import tableStyles from "style/Table.module.scss";
 const MY_API = process.env.REACT_APP_USER_API;
 
 const LaundryTable = () => { 
-  const defaultDateFrom = moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
-  const defaultDateTo = moment().add(7, "days").set({ hour: 23, minute: 59, second: 59, millisecond: 999 });
- 
+   
   const [startDate, setStartDate] = useState(defaultDateFrom.toDate());
   const [endDate, setEndDate] = useState(defaultDateTo.toDate());
   const [room, setRoom] = useState("");
