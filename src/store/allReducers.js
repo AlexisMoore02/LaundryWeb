@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-import { authReducer, errorReducer } from "./redusers/index"; 
+import { authReducer, errorReducer, pageStateReducer } from "./redusers/index"; 
 
 const appReducer = combineReducers({
   auth: authReducer,
   error: errorReducer,
+  pageState: pageStateReducer,
 });
 
 const rootReducer = (state, action) => {
