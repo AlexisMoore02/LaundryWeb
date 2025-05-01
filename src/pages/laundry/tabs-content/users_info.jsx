@@ -1,35 +1,14 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
-import { FaCheck } from "react-icons/fa";
-import { filterOptions } from "constants/filterOptions";
 import { columns, getUserFilters, getUserRenderCell } from "./user-data";
 
-import {
-  handleActionForError,
-  closeModal,
-  setModalData,
-} from "store/actions/errorActions";
-import {
-  handleUserByName,
-  handleUserId,
-  handleBanToggle,
-  handleLastDate,
-  handleRoomChangeStart,
-  handleRoomChange,
-} from "utils/userInfoHelpers";
+import { handleActionForError, closeModal, setModalData } from "store/actions/errorActions";
 
-import {
-  handleCheckboxChange,
-  handleResetFilter,
-  handleClickOutside,
-} from "utils/filterHelpers";
+import { handleClickOutside } from "utils/filterHelpers";
 
 import * as Component from "components/index";
 import * as useHook from "hooks/index";
-
-import tableStyles from "style/Table.module.scss";
 
 const MY_API = process.env.REACT_APP_USER_API;
 
