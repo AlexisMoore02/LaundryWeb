@@ -208,14 +208,17 @@ $shadow-hover: 0 0vh 0.1vh 0.1vh #1c2d6b;
         display: none;
 
         &:checked + label:before {
-          width: 0.7vh;
-          top: -0.2vh;
+          width: 0.9vh;
+          top: -0.3vh;
           left: 0.6vh;
           border-radius: 0;
+          border: .3vh solid #ddd;
           opacity: 1;
           border-top-color: transparent;
           border-left-color: transparent;
-          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg); 
+          z-index: 2;
         }
 
         &:checked + label:after {
@@ -229,7 +232,7 @@ $shadow-hover: 0 0vh 0.1vh 0.1vh #1c2d6b;
           top: -0.2vh;
           border: 0.15vh solid $text-primary;
           border-radius: 5px;
-          box-sizing: border-box;
+          box-sizing: border-box; 
         }
 
         + label {
@@ -237,12 +240,12 @@ $shadow-hover: 0 0vh 0.1vh 0.1vh #1c2d6b;
           position: relative;
           padding-left: $checkbox-left-padding;
           margin: 0.5vh 0;
-          font: $font-size/2vh $font-family-checkbox;
+          font: $font-size-medium $font-family-checkbox;
           color: #ddd;
           cursor: pointer;
 
           &:last-child {
-            margin-bottom: 0.7vh;
+            margin-bottom: 1.2vh;
           }
 
           &:before {

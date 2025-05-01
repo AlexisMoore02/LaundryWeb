@@ -13,7 +13,8 @@ $width-scrollbar: 0.6vh;
 $box-shadow-table: 0 0.8vh 0.8vh 0.2vh rgba(0, 0, 0, 0.25);
 $box-shadow-thread: 0 0.4vh 0.4vh 0 rgba(0, 0, 0, 0.25);
 $box-shadow-row: 0.1vh 0.2vh 0.1vh rgba(14, 13, 13, 0.5);
-$box-shadow-ban: 0.1vh 0.1vh 0.2vh 0.1vh rgba(0, 0, 0, 0.25);
+$box-shadow-ban: 0.1vh 0.1vh 0.2vh 0.1vh rgba(14, 13, 13, 0.5);
+$box-shadow-ban-hover: 0.3vh 0.3vh 0.4vh 0.3vh rgba(14, 13, 13, 0.5);
 
 $border-radius-button: 0.2vh;
 $transition-speed: 0.3s ease;
@@ -123,31 +124,41 @@ input {
   margin: $padding-medium;
   padding: 0.1vh $padding-small;
   width: 90%;
+  background-color: $highlight-bg;
   border: none;
   border-radius: $border-radius-button;
   font-size: $font-size-button;
   cursor: pointer;
   word-wrap: break-word;
   transition: background-color $transition-speed, color $transition-speed;
-
+  color: $primary-text;
   &:active,
-  &:focus,
+  &:focus {
+    outline: none;
+  }
+
   &:hover {
     outline: none;
+    box-shadow: $box-shadow-ban-hover;
   }
 }
 
-.notBanned {
-  background-color: $background-color-active;
-  box-shadow: $box-shadow-ban;
+.inputEvenRow {
+  background-color: $input-bg;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  color: $primary-text;
+  font: $font-weight-normal $font-size $font-family;
+}
+.inputNoEvenRow {
+  background-color: $primary-background;
+  font: $font-weight-normal $font-size $font-family;
+  border: none;
+  outline: none;
+  box-shadow: none;
   color: $primary-text;
 }
-
-.banned {
-  background-color: $banned-bg;
-  color: #fff;
-}
-
 .evenRow,
 .noevenRow {
   height: $height-row;

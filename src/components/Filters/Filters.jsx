@@ -7,13 +7,7 @@ import filterStyles from "style/Filters.module.scss";
 import "react-calendar/dist/Calendar.css";
 import "style/Calendar.scss";
 
-export const Filters = ({
-  filters,
-  calendarVisible,
-  setCalendarVisible,
-  handleCalendarChange,
-  filtersRef,
-}) => {
+export const Filters = ({ filters, filtersRef }) => {
   return (
     <div className={filterStyles.filters} ref={filtersRef}>
       {filters.map((filter, index) => {
@@ -54,24 +48,20 @@ export const Filters = ({
             <div className={filterStyles.calendar} key={index}>
               <button
                 className={filterStyles.calendarBtn}
-                onClick={() => setCalendarVisible(!calendarVisible)}
+                onClick={() => filter.setCalendarVisible(!filter.calendarVisible)}
               >
                 <input
                   readOnly
                   type="text"
                   className={filterStyles.input}
                   placeholder="Выберите дату"
-                  value={
-                    filter.value !== 0
-                      ? `${filter.value[0]} - ${filter.value[1]}`
-                      : "Выберите дату"
-                  }
+                  value={ filter.value !== 0 ? `${filter.value[0]} - ${filter.value[1]}` : "Выберите дату"}
                 />
-                {calendarVisible ? <AiOutlineUp /> : <AiOutlineDown />}
+                {filter.calendarVisible ? <AiOutlineUp /> : <AiOutlineDown />}
               </button>
-              {calendarVisible && (
+              {filter.calendarVisible && (
                 <Calendar
-                  onChange={handleCalendarChange}
+                  onChange={filter.onChange}
                   selectRange={true}
                   className={"react-calendar"}
                 />
@@ -142,4 +132,4 @@ export const Filters = ({
       })}
     </div>
   );
-}; 
+};

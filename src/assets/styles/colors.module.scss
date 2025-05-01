@@ -16,9 +16,7 @@ $secondary-color: #ccc;
 $error-color: #ff6666;
 $header-color: #fffafa;
 
-
-$primary-background: #1c1b1b; 
-
+$primary-background: #1c1b1b;
 
 //Table
 $primary-bg: #212121;
@@ -31,10 +29,13 @@ $action-color-edit: #ebce2c;
 
 //Tabs
 $tab-active-text-color: deepskyblue;
-$tab-active-gradient: linear-gradient( 113deg, hsl(260deg 100% 64%) 0%, hsl(190deg 100% 55%) 100%);
+$tab-active-gradient: linear-gradient(
+  113deg,
+  hsl(260deg 100% 64%) 0%,
+  hsl(190deg 100% 55%) 100%
+);
 $tab-border-bottom-color: #1d1e22;
 $tab-box-shadow: 0vh 0.2vh 0.8vh 0.2vh rgba(0, 0, 0, 0.25);
-
 
 //Calendar
 $calendar-bg: #282828;
@@ -49,7 +50,6 @@ $tile-range-bg: #0d33bb8e;
 $disabled-bg: #0d32bb;
 $tile-now-hover-bg: #001767;
 
-
 //Filters
 $bg-primary: #001767;
 $bg-input: #212121;
@@ -60,14 +60,12 @@ $text-placeholder: #cccccc5d;
 $text-light: #eee;
 $text-error: #bf2554;
 
-
 //Modal
 $primary-color: #fffafa;
 $secondary-color: #1d1c1c;
 $accent-color: #991414;
 $border-color: #797979;
 $hover-shadow: rgba(0, 0, 0, 0.56);
-
 
 //Error
 $error-color: #ffffff;
