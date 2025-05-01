@@ -1,5 +1,8 @@
 import { format } from "date-fns";
-import { handleActionForError, setModalData} from 'store/actions/errorActions'
+import { handleActionForError, setModalData} from 'store/actions/errorActions'  
+
+const MY_API = process.env.REACT_APP_USER_API;
+
 export const formatDate = (date) => {
   return format(date, "dd.MM.yyyy");
 };
@@ -9,6 +12,24 @@ export const handleCalendarChange = (value, setStartDate, setEndDate) => {
     setStartDate(value[0]);
     setEndDate(value[1]);
   }
+};
+export const fetchLaundryData = (startDate, endDate, fetchData, setLaundryValues, setLoading, dispatch, navigate) => {
+  setLoading(true);
+  fetchData({
+    url: `${MY_API}/laundry_values?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`,
+    method: "POST",
+    onSuccess: (data) => {
+      const sortedData = data.sort(
+        (a, b) => new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+      );
+      setLaundryValues(sortedData);
+    },
+    onError: (errcode) => {
+      const modalData = handleActionForError(errcode, navigate);
+      dispatch(setModalData(modalData));
+    },
+    onFinally: () => setLoading(false),
+  });
 };
 
 export const handleRequestRoom = async (

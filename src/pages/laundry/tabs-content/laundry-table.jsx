@@ -1,52 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { defaultDateFrom, defaultDateTo } from "constants/dateDefaults";
-import { RiEditLine, RiDeleteBinLine } from "react-icons/ri";
- 
-import {
-  handleActionForError,
-  closeModal,
-  setModalData,
-} from "store/actions/errorActions";
-import {
-  formatDate,
-  handleCalendarChange,
-  handleRequestRoom,
-  handleSearchRoom,
-  handleLastDate,
-} from "utils/laundryHelpers";
+import { getLaundryFilters, getLaundryRenderCell } from "./laundry-data";
+import { closeModal } from "store/actions/errorActions";
+import { fetchLaundryData } from "utils/laundryHelpers";
 
 import * as useHook from "hooks/index";
 import * as Component from "components/index";
 
-import tableStyles from "style/Table.module.scss";
- 
-const MY_API = process.env.REACT_APP_USER_API;
+  const FREE_SLOT_STATUS = "Свободно";
 
-const LaundryTable = () => { 
-   
+const LaundryTable = () => {
   const [startDate, setStartDate] = useState(defaultDateFrom.toDate());
   const [endDate, setEndDate] = useState(defaultDateTo.toDate());
-  const [room, setRoom] = useState("");
-  const [laundryValues, setLaundryValues] = useState();
+  const [editSlot, setEditSlot] = useState({ id: null, key: null });
   const [calendarVisible, setCalendarVisible] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [laundryValues, setLaundryValues] = useState();
+  const [loading, setLoading] = useState(false);
+  const [room, setRoom] = useState("");
+
   const { fetchData } = useHook.useApi();
+
   const errorModal = useSelector((state) => state.error.modalData);
 
-  const filtersUserRef = useRef(null);
   const calendarContainerRef = useRef(null);
+  const filtersUserRef = useRef(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (errorModal.isOpen) {
-      console.log("Modal is open, content:", errorModal.content); 
-    }
-  }, [errorModal]);
-
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -60,26 +42,26 @@ const LaundryTable = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    fetchData({
-      url: `${MY_API}/laundry_values?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`,
-      method: "POST",
-      onSuccess: (data) => {
-        const sortedData = data.sort((a, b) => new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`));
-        setLaundryValues(sortedData); 
-      },
-      onError: (errcode) => {
-        const modalData = handleActionForError(errcode, navigate);
-        dispatch(setModalData(modalData));
-      },
-      onFinally: () => setLoading(false),
-    });
+    fetchLaundryData(startDate, endDate, fetchData, setLaundryValues, setLoading, dispatch, navigate);
   }, [startDate, endDate]);
+  
 
-  const [editSlot, setEditSlot] = useState(null);
-  const handleEditSlot = (data) => {
-    //TO DO REQUEST
-  }
+  const handleEditSlot = (item, key) => {
+    setEditSlot({ date: item.date, time: item.time, key });
+  };
+
+  const handleSaveEditSlot = (editedRoom) => {
+    setLaundryValues((prev) => {
+      return prev.map((item) => {
+        if (item[editSlot.key] === FREE_SLOT_STATUS) {
+          return { ...item, [editSlot.key]: editedRoom };
+        }
+        return item;
+      });
+    });
+    setEditSlot(null);
+  };
+
   const [deleteModalData, setDeleteModalData] = useState({
     isOpen: false,
     room: "",
@@ -88,65 +70,40 @@ const LaundryTable = () => {
     slotNumber: "",
   });
 
+  const filters = useMemo(
+    () =>
+      getLaundryFilters({
+        room,
+        setRoom,
+        startDate,
+        endDate,
+        setStartDate,
+        setEndDate,
+        calendarVisible,
+        setCalendarVisible,
+        setLaundryValues,
+        dispatch,
+      }),
+    [room, startDate, endDate, calendarVisible]
+  );
+
+  const machineKeys = Object.keys(laundryValues?.[0] || {}).filter((key) =>
+    key.startsWith("slot_")
+  );
+  const renderCell = useMemo(
+    () => getLaundryRenderCell( editSlot, setEditSlot, setDeleteModalData, handleEditSlot, handleSaveEditSlot ),
+    [editSlot]
+  );
+  const columns = [
+    { key: "date", title: "Дата" },
+    { key: "time", title: "Время" },
+    ...machineKeys.map((key, index) => ({ key, title: `Машинка №${index + 1}`, })),
+  ];
   return (
     <>
-      <Component.Filters
-        filters={[
-          {
-            type: "input",
-            placeholder: "Комната",
-            value: room,
-            onChange: (e) => handleSearchRoom(e, setRoom),
-            onSearch: () => handleRequestRoom(room, setLaundryValues, dispatch),
-            onEnter: () => handleRequestRoom(room, setLaundryValues, dispatch),
-            showError: room.length >= 3 && room.length <= 4 && !/^\d{3}[а]?$/i.test(room),
-            errorMessage: "Не верно указан номер комнаты",
-          },
-          {
-            type: "calendar",
-            value: [formatDate(startDate), formatDate(endDate)],
-          },
-        ]}
-        calendarVisible={calendarVisible}
-        setCalendarVisible={setCalendarVisible}
-        handleCalendarChange={(value) => handleCalendarChange(value, setStartDate, setEndDate)}
-        filtersRef={filtersUserRef}
-      />
+      <Component.Filters filters={filters} filtersRef={filtersUserRef} />
 
-      <Component.Table
-        columns={[
-          { key: "date", title: "Дата" },
-          { key: "time", title: "Время" },
-          { key: "slot_1", title: "Машинка №1" },
-          { key: "slot_2", title: "Машинка №2" },
-        ]}
-        data={laundryValues}
-        loading={loading}
-        renderCell={(item, key) => {
-          const value = item[key];
-
-          if (["slot_1", "slot_2", "slot_3", "slot_4"].includes(key)) {
-            return (
-              <div className={tableStyles.lineCenter}>
-                <p className={tableStyles.lineP}>{value}</p>
-                {value !== "Свободно" ? (
-                  <RiDeleteBinLine
-                    className={`${tableStyles.buttonAction} ${tableStyles.delete}`}
-                    onClick={() => handleLastDate(value, item, setDeleteModalData)}
-                  />
-                ) : (
-                  <RiEditLine
-                    className={`${tableStyles.buttonAction} ${tableStyles.edit}`}
-                    onClick={() => handleEditSlot(item[key])}
-                  />
-                )}
-              </div>
-            );
-          }
-
-          return item[key];
-        }}
-      />
+      <Component.Table columns={columns} data={laundryValues} loading={loading} renderCell={renderCell} />
 
       <Component.Modals
         isOpen={errorModal.isOpen}
@@ -167,7 +124,7 @@ const LaundryTable = () => {
             time={deleteModalData.time}
             slotNumber={deleteModalData.slotNumber}
             isOpen={deleteModalData.isOpen}
-            closeModal={() => setDeleteModalData((prev) => ({ ...prev, isOpen: false }))}
+            closeModal={() => setDeleteModalData((prev) => ({ ...prev, isOpen: false })) }
           />
         }
         error={false}

@@ -36,7 +36,7 @@ export const Table = ({ columns = [], data = [], renderCell, loading = false }) 
               <tr
                 key={index}
                 className={`${styles.rowHover} ${
-                  index % 2 === 1 ? styles.evenRow : styles.noevenRow
+                  index % 2 === 0 ? styles.evenRow : styles.noevenRow
                 }`}
               >
                 <td className={`${styles.thLine} ${styles.thPadding}`}>
@@ -47,7 +47,7 @@ export const Table = ({ columns = [], data = [], renderCell, loading = false }) 
                     key={col.key}
                     className={`${styles.thLine} ${styles.thPadding}`}
                   >
-                    {renderCell ? renderCell(item, col.key) : item[col.key]}
+                    {renderCell ? renderCell(item, col.key, index) : item[col.key]}
                   </td>
                 ))}
               </tr>
@@ -57,4 +57,4 @@ export const Table = ({ columns = [], data = [], renderCell, loading = false }) 
       </table>
     </div>
   );
-}; 
+};
