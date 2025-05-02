@@ -1,26 +1,36 @@
 import { format } from "date-fns";
-import { handleActionForError, setModalData} from 'store/actions/errorActions'  
+import { handleActionForError, setModalData } from "store/actions/errorActions";
 
 const MY_API = process.env.REACT_APP_USER_API;
 
 export const formatDate = (date) => {
   return format(date, "dd.MM.yyyy");
 };
-
 export const handleCalendarChange = (value, setStartDate, setEndDate) => {
   if (value.length === 2) {
     setStartDate(value[0]);
     setEndDate(value[1]);
   }
 };
-export const fetchLaundryData = (startDate, endDate, fetchData, setLaundryValues, setLoading, dispatch, navigate) => {
+export const fetchLaundryData = (
+  startDate,
+  endDate,
+  fetchData,
+  setLaundryValues,
+  setLoading,
+  dispatch,
+  navigate
+) => {
   setLoading(true);
   fetchData({
-    url: `${MY_API}/laundry_values?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`,
+    url: `${MY_API}/laundry_values?start_date=${formatDate(
+      startDate
+    )}&end_date=${formatDate(endDate)}`,
     method: "POST",
     onSuccess: (data) => {
       const sortedData = data.sort(
-        (a, b) => new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+        (a, b) =>
+          new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
       );
       setLaundryValues(sortedData);
     },
@@ -31,12 +41,7 @@ export const fetchLaundryData = (startDate, endDate, fetchData, setLaundryValues
     onFinally: () => setLoading(false),
   });
 };
-
-export const handleRequestRoom = async (
-  room,
-  setLaundryValues,
-  dispatch
-) => {
+export const handleRequestRoom = async (room, setLaundryValues, dispatch) => {
   if (room.trim() !== "") {
     try {
       const response = await fetch(
@@ -57,9 +62,9 @@ export const handleRequestRoom = async (
         );
         setLaundryValues(sortedData);
       } else {
-    const modalData = handleActionForError(result.errcode);
-         dispatch(setModalData(modalData)); 
-            throw new Error("Error fetching room data");
+        const modalData = handleActionForError(result.errcode);
+        dispatch(setModalData(modalData));
+        throw new Error("Error fetching room data");
       }
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -79,7 +84,6 @@ export const handleSearchRoom = (e, setRoom) => {
     setRoom(value);
   } else setRoom(value);
 };
-
 export const handleLastDate = (slotValue, row, setDeleteModalData) => {
   const slotKey = Object.keys(row).find(
     (key) => row[key] === slotValue && key.startsWith("slot_")

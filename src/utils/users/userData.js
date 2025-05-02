@@ -2,8 +2,8 @@ import React from "react";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
 import { filterOptions } from "constants/filterOptions";
-import { handleUserByName, handleUserId, handleBanToggle, handleLastDate, handleRoomChangeStart, handleRoomChange } from "utils/userInfoHelpers";
-import { handleCheckboxChange, handleResetFilter } from "utils/filterHelpers";
+import { handleResetFilter, handleCheckboxChange } from "utils/filterHelpers";
+import * as Users from "utils/users/index";
 
 import tableStyles from "style/Table.module.scss";
 
@@ -78,8 +78,8 @@ export const columns = [
         placeholder: "Id пользователя",
         value: userId,
         onChange: setUserId,
-        onSearch: () => handleUserId(userId),
-        onEnter: () => handleUserId(userId),
+        onSearch: () => Users.handleUserId(userId),
+        onEnter: () => Users.handleUserId(userId),
       });
     } else if (filterValue === "Имя Фамилия") {
       base.push({
@@ -87,8 +87,8 @@ export const columns = [
         placeholder: "Имя Фамилия",
         value: userByName,
         onChange: setUserByName,
-        onSearch: () => handleUserByName(userByName),
-        onEnter: () => handleUserByName(userByName),
+        onSearch: () => Users.handleUserByName(userByName),
+        onEnter: () => Users.handleUserByName(userByName),
       });
     }
   
@@ -112,7 +112,7 @@ export const columns = [
         return (
           <button
             className={tableStyles.banButton}
-            onClick={() => handleBanToggle(item.user_id, value)}
+            onClick={() => Users.handleBanToggle(item.user_id, value)}
           >
             {!isBanned ? "Заблокировать" : "Разблокировать"}
           </button>
@@ -124,7 +124,7 @@ export const columns = [
         return (
           <button
             className={tableStyles.banButton}
-            onClick={() => handleBanToggle(item.user_id, value)}
+            onClick={() => Users.handleBanToggle(item.user_id, value)}
           >
             {isBanned ? "Активировать" : "Деактивировать"}
           </button>
@@ -137,7 +137,7 @@ export const columns = [
             <p className={tableStyles.lineP}>{value}</p>
             <RiDeleteBinLine
               className={`${tableStyles.buttonAction} ${tableStyles.delete}`}
-              onClick={() => handleLastDate(item.user_id)}
+              onClick={() => Users.handleLastDate(item.user_id)}
             />
           </div>
         );
@@ -156,15 +156,13 @@ export const columns = [
               value={editedRooms[item.user_id] || item.room}
               readOnly={!editableRowId || editableRowId !== item.user_id}
               onChange={(e) =>
-                handleRoomChange(e, item, setRoom, setEditedRooms)
+                Users.handleRoomChange(e, item, setRoom, setEditedRooms)
               }
             />
             {editableRowId === item.user_id ? (
               <FaCheck
                 className={`${tableStyles.buttonAction} ${tableStyles.check}`}
-                onClick={() =>
-                  handleRoomChangeStart(item, setEditedRooms, room)
-                }
+                onClick={() => Users.handleRoomChangeStart(item, setEditedRooms, room)}
               />
             ) : (
               <RiEditLine

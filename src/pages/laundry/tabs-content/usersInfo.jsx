@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { columns, getUserFilters, getUserRenderCell } from "./user-data";
-
 import { handleActionForError, closeModal, setModalData } from "store/actions/errorActions";
-
-import { handleClickOutside } from "utils/filterHelpers";
 
 import * as Component from "components/index";
 import * as useHook from "hooks/index";
+import * as Utils from "utils/index"; 
 
 const MY_API = process.env.REACT_APP_USER_API;
 
@@ -66,7 +63,7 @@ const UsersInfo = () => {
 
   useEffect(() => {
     const handleClick = (event) =>
-      handleClickOutside(event, filtersUserRef, setFilterVisible);
+      Utils.FilterHelpers. handleClickOutside(event, filtersUserRef, setFilterVisible);
 
     document.addEventListener("click", handleClick);
 
@@ -77,7 +74,7 @@ const UsersInfo = () => {
 
   const filters = useMemo(
     () =>
-      getUserFilters({
+      Utils.Users.getUserFilters({
         filterValue,
         filterVisible,
         isFilterCollapsed,
@@ -107,7 +104,7 @@ const UsersInfo = () => {
 
   const renderCell = useMemo(
     () =>
-      getUserRenderCell(
+      Utils.Users.getUserRenderCell(
         editedRooms,
         editableRowId,
         setEditableRowId,
@@ -123,7 +120,7 @@ const UsersInfo = () => {
       <Component.Filters filters={filters} filtersRef={filtersUserRef} />
 
       <Component.Table
-        columns={columns}
+        columns={Utils.Users.columns}
         data={laundryValues}
         loading={loading}
         renderCell={renderCell}

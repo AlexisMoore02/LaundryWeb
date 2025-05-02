@@ -8,8 +8,8 @@ import { hasAccess } from "utils/access";
 import laundryImage from "assets/images/laundry.png";
 import styles from "style/Laundry.module.scss";
 
-import LaundryTable from "./tabs-content/laundry-table";
-import UsersInfo from "./tabs-content/users_info";
+import LaundryTable from "./tabs-content/laundryTable";
+import UsersInfo from "./tabs-content/usersInfo";
 // import Position from "./tabs-content/position";
 // import Mailing from "./tabs-content/mailing";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { RiEditLine, RiDeleteBinLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
-import { formatDate, handleCalendarChange, handleRequestRoom, handleSearchRoom, handleLastDate } from "utils/laundryHelpers";
+import * as Utils from "./index";
 
 import tableStyles from "style/Table.module.scss";
 
@@ -21,19 +21,19 @@ export const getLaundryFilters = ({
     type: "input",
     placeholder: "Комната",
     value: room,
-    onChange: (e) => handleSearchRoom(e, setRoom),
-    onSearch: () => handleRequestRoom(room, setLaundryValues, dispatch),
-    onEnter: () => handleRequestRoom(room, setLaundryValues, dispatch),
+    onChange: (e) => Utils.handleSearchRoom(e, setRoom),
+    onSearch: () => Utils.handleRequestRoom(room, setLaundryValues, dispatch),
+    onEnter: () => Utils.handleRequestRoom(room, setLaundryValues, dispatch),
     showError:
       room.length >= 3 && room.length <= 4 && !/^\d{3}[а]?$/i.test(room),
     errorMessage: "Не верно указан номер комнаты",
   },
   {
     type: "calendar",
-    value: [formatDate(startDate), formatDate(endDate)],
+    value: [Utils.formatDate(startDate), Utils.formatDate(endDate)],
     calendarVisible,
     setCalendarVisible,
-    onChange: (value) => handleCalendarChange(value, setStartDate, setEndDate),
+    onChange: (value) => Utils.handleCalendarChange(value, setStartDate, setEndDate),
   },
 ];
 export const getLaundryRenderCell = (
@@ -74,7 +74,7 @@ export const getLaundryRenderCell = (
           {value !== "Свободно" ? (
             <RiDeleteBinLine
               className={`${tableStyles.buttonAction} ${tableStyles.delete}`}
-              onClick={() => handleLastDate(value, item, setDeleteModalData)}
+              onClick={() => Utils.handleLastDate(value, item, setDeleteModalData)}
             />
           ) : isEditing ? (
             <FaCheck

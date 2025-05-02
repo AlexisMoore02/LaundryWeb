@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { defaultDateFrom, defaultDateTo } from "constants/dateDefaults";
-import { getLaundryFilters, getLaundryRenderCell } from "./laundry-data";
-import { closeModal } from "store/actions/errorActions";
-import { fetchLaundryData } from "utils/laundryHelpers";
+import { closeModal } from "store/actions/errorActions"; 
 
+import * as Utils from "utils/index";
 import * as useHook from "hooks/index";
 import * as Component from "components/index";
 
@@ -42,7 +41,7 @@ const LaundryTable = () => {
   }, []);
 
   useEffect(() => {
-    fetchLaundryData(startDate, endDate, fetchData, setLaundryValues, setLoading, dispatch, navigate);
+    Utils.Laundry.fetchLaundryData(startDate, endDate, fetchData, setLaundryValues, setLoading, dispatch, navigate);
   }, [startDate, endDate]);
   
 
@@ -72,7 +71,7 @@ const LaundryTable = () => {
 
   const filters = useMemo(
     () =>
-      getLaundryFilters({
+      Utils.Laundry.getLaundryFilters({
         room,
         setRoom,
         startDate,
@@ -91,7 +90,7 @@ const LaundryTable = () => {
     key.startsWith("slot_")
   );
   const renderCell = useMemo(
-    () => getLaundryRenderCell( editSlot, setEditSlot, setDeleteModalData, handleEditSlot, handleSaveEditSlot ),
+    () => Utils.Laundry.getLaundryRenderCell( editSlot, setEditSlot, setDeleteModalData, handleEditSlot, handleSaveEditSlot ),
     [editSlot]
   );
   const columns = [
