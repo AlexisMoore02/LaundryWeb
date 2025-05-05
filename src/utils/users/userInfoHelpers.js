@@ -84,7 +84,13 @@ export const handleBanToggle = async (userId, currentBanStatus) => {
   //   console.error(`Error ${action} user:`, error.message);
   // }
 };
-export const handleLastDate = async (user_id) => {
+export const handleLastDate = async (value, row, setDeleteModalData) => {
+  setDeleteModalData({
+    isOpen: true, 
+    room: row.room,
+    user_id:value,
+    date: row.date, 
+  });
   // try {
   //   const response = await fetch(
   //     `${MY_API}/delete_last_date?user_id=${user_id}`,

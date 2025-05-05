@@ -101,20 +101,26 @@ const UsersInfo = () => {
       userByName,
     ]
   );
-
+const [deleteModalData, setDeleteModalData] = useState({
+    isOpen: false,
+    room: "",
+    date: "",
+    user_id: 0
+  });
   const renderCell = useMemo(
     () =>
       Utils.Users.getUserRenderCell(
         editedRooms,
         editableRowId,
         setEditableRowId,
+        setDeleteModalData,
         room,
         setRoom,
         setEditedRooms
       ),
     [editedRooms, editableRowId, room]
   );
-
+  
   return (
     <>
       <Component.Filters filters={filters} filtersRef={filtersUserRef} />
@@ -133,6 +139,26 @@ const UsersInfo = () => {
         content={errorModal.content}
         error={true}
       />
+      <Component.Modals
+              isOpen={deleteModalData.isOpen}
+              onClose={() =>
+                setDeleteModalData((prev) => ({ ...prev, isOpen: false }))
+              }
+              title={"Удаление записи на стирку"}
+              content={
+                <Component.DeleteEntry
+                  room={deleteModalData.room}
+                  date={deleteModalData.date}
+                  time={''}
+                  slotNumber={deleteModalData.slotNumber}
+                  isOpen={deleteModalData.isOpen}
+                  closeModal={() =>
+                    setDeleteModalData((prev) => ({ ...prev, isOpen: false }))
+                  }
+                />
+              }
+              error={false}
+            />
     </>
   );
 };
