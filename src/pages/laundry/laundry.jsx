@@ -10,7 +10,7 @@ import styles from "style/Laundry.module.scss";
 
 import LaundryTable from "./tabs-content/laundryTable";
 import UsersInfo from "./tabs-content/usersInfo";
-// import Position from "./tabs-content/position";
+import Position from "./tabs-content/position";
 // import Mailing from "./tabs-content/mailing";
 
 const Laundry = () => {
@@ -20,7 +20,7 @@ const Laundry = () => {
   const TabsList = [
     { id: 1, title: "СТИРКА", context: <LaundryTable /> },
     { id: 2, title: "ПОЛЬЗОВАТЕЛИ", context: <UsersInfo /> },
-    // { id: 3, title: "ПОЗИЦИЯ", context: <Position /> },
+    { id: 3, title: "ПОЗИЦИЯ", context: <Position /> },
     // { id: 4, title: "РАССЫЛКА", context: <Mailing />, visible: hasAccess(loggedIn, role, ["God"])},
   ];
 
